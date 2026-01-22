@@ -1,19 +1,20 @@
-/* Color Variables */
+/* NVIDIA Inspired Color Palette */
 :root[data-theme="light"] {
     --bg: #ffffff;
     --text: #1a1a1a;
-    --accent: #3498db;
-    --link-color: #3498db; /* Blue for light mode */
+    --accent: #76B900;       /* NVIDIA Green */
+    --link-color: #5d9300;   /* Slightly darker green for readability on white */
     --card-bg: #f8f9fa;
 }
 
 :root[data-theme="dark"] {
-    --bg: #0f172a;
+    --bg: #000000;           /* Pure black for that "Pro" look */
     --text: #f8fafc;
-    --accent: #38bdf8;
-    --link-color: #ffffff; /* White for dark mode */
-    --card-bg: #1e293b;
+    --accent: #76B900;       /* NVIDIA Green */
+    --link-color: #76B900;   /* Bright green for dark mode */
+    --card-bg: #121212;      /* Very dark grey for cards */
 }
+
 a {
     color: var(--link-color);
     text-decoration: none; /* Removes the underline */
