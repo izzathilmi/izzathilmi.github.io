@@ -14,6 +14,24 @@
     --link-color: #ffffff; /* White for dark mode */
     --card-bg: #1e293b;
 }
+a {
+    color: var(--link-color);
+    text-decoration: none; /* Removes the underline */
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent); /* Changes color slightly when you hover */
+    text-decoration: underline;
+}
+
+/* Specifically for your Roadmap Links */
+.skeleton-card-link {
+    text-decoration: none;
+    display: block; /* Makes the whole card clickable */
+    color: var(--text); /* Keeps the card text normal */
+}
 
 body {
     background-color: var(--bg);
