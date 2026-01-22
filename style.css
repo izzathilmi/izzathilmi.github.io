@@ -3,6 +3,7 @@
     --bg: #ffffff;
     --text: #1a1a1a;
     --accent: #3498db;
+    --link-color: #3498db; /* Blue for light mode */
     --card-bg: #f8f9fa;
 }
 
@@ -10,6 +11,7 @@
     --bg: #0f172a;
     --text: #f8fafc;
     --accent: #38bdf8;
+    --link-color: #ffffff; /* White for dark mode */
     --card-bg: #1e293b;
 }
 
