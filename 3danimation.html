@@ -50,11 +50,48 @@
             z-index: 2;
         }
 
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 80vh; /* Takes up most of the screen */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+    
+        .hero-text {
+            position: absolute;
+            z-index: 10; /* Ensures text is on top of the DNA */
+            text-align: center;
+            pointer-events: none; /* Allows you to click "through" the text if needed */
+            color: var(--dna-secondary);
+            font-family: sans-serif;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2rem, 8vw, 5rem); /* Responsive font size */
+            margin: 0;
+        }
+        
+        .highlight {
+            color: var(--dna-primary);
+        }
+        
+        /* Responsive Helix Container */
         #helix-container {
             position: relative;
-            width: 200px;
-            height: 500px;
-            margin: 50px auto; /* Centers the helix on the page */
+            width: 100%;
+            max-width: 400px;
+            height: 100%; /* Fills the hero height */
+            opacity: 0.6; /* Slight fade so text is easier to read */
+        }
+        
+        /* Mobile Tweak: Make the DNA thinner on small screens */
+        @media (max-width: 600px) {
+            #helix-container {
+                transform: scale(0.7);
+            }
         }
 
         .connector {
@@ -79,7 +116,14 @@
         <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
     </nav>
     <div id="helix-container"></div>
+    <section class="hero">
+    <div class="hero-text">
+        <h1>Innovation <span class="highlight">Driven</span></h1>
+        <p>Building the future of biotech and software.</p>
+    </div>
 
+    <div id="helix-container"></div>
+    </section>
     <script>
         const container = document.getElementById('helix-container');
         const numRows = 30; // Number of "steps" in the helix
