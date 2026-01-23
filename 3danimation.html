@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D DNA Helix Animation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
        :root[data-theme="dark"] {
             --dna-primary: #76B900;   /* NVIDIA Green */
@@ -73,7 +74,24 @@
             font-size: clamp(2rem, 8vw, 5rem); /* Responsive font size */
             margin: 0;
         }
+        .hero-text a {
+            color: var(--dna-secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px; /* Space between icon and text */
+        }
         
+        .hero-text a:hover {
+            color: var(--dna-primary);
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+        
+        .hero-text i {
+            font-size: 1.4rem; /* Makes icons slightly larger than text */
+        }
         .highlight {
             color: var(--dna-primary);
         }
@@ -108,6 +126,59 @@
             padding: 20px;
             color: var(--dna-secondary);
         }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.8;
+            z-index: 20; /* Keep it above the DNA */
+        }
+        
+        .scroll-indicator p {
+            color: var(--dna-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+        
+        .mouse {
+            width: 26px;
+            height: 42px;
+            border: 2px solid var(--dna-primary);
+            border-radius: 15px;
+            position: relative;
+        }
+        
+        .wheel {
+            width: 4px;
+            height: 8px;
+            background-color: var(--dna-primary);
+            border-radius: 2px;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scroll-anim 1.5s infinite;
+        }
+        
+        @keyframes scroll-anim {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(15px); }
+        }
+        
+        /* Hide scroll indicator when user starts scrolling */
+        .scroll-indicator.hidden {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -120,9 +191,26 @@
         <div class="hero-text">
             <h1>Izzat <span class="highlight">Hilmi</span></h1>
             <p>Technical Support Engineer</p>
-            <p><a href="https://github.com/izzathilmi" target="_blank"><i class="highlight"></i> GitHub</a>
-            <a href="https://www.linkedin.com/in/izzathilmi98/" target="_blank"><i class="highlight"></i> LinkedIn</a></p>
-        </div><div id="helix-container"></div>
+            
+            <p>
+                <a href="https://github.com/izzathilmi" target="_blank">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+            </p>
+            <p>
+                <a href="https://www.linkedin.com/in/izzathilmi98/" target="_blank">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+            </p>
+        </div> 
+    
+        <div id="helix-container"></div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <p>Scroll Down</p>
+        </div>
     </section>
 
     <script>
@@ -193,6 +281,15 @@
         }
 
         animate();
+
+        window.addEventListener('scroll', () => {
+            const indicator = document.querySelector('.scroll-indicator');
+            if (window.scrollY > 100) {
+                indicator.classList.add('hidden');
+            } else {
+                indicator.classList.remove('hidden');
+            }
+        });
     </script>
     <script src="script.js"></script>
 </body>
