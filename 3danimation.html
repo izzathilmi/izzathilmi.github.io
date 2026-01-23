@@ -151,15 +151,15 @@
 
         function animate() {
             rotation += speed;
-            const containerWidth = container.offsetWidth;
-            const containerHeight = container.offsetHeight;
+            const centerX = containerWidth / 2;
+            const amplitude = Math.min(containerWidth * 0.4, 80); // DNA gets narrower on small screens
 
             rows.forEach((row, i) => {
                 const y = (i / numRows) * containerHeight;
                 
                 // Calculate horizontal positions using Sine and Cosine
-                const x1 = Math.sin(rotation + row.offset) * 80 + (containerWidth / 2);
-                const x2 = Math.sin(rotation + row.offset + Math.PI) * 80 + (containerWidth / 2);
+                const x1 = Math.sin(rotation + row.offset) * amplitude + centerX;
+                const x2 = Math.sin(rotation + row.offset + Math.PI) * amplitude + centerX;
                 
                 // Depth effect (scaling based on Z-index equivalent)
                 const z1 = Math.cos(rotation + row.offset);
