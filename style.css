@@ -15,16 +15,24 @@
     --card-bg: #121212;      /* Very dark grey for cards */
 }
 
+/* Global Link Styling */
 a {
     color: var(--link-color);
-    text-decoration: none; /* Removes the underline */
-    font-weight: 500;
-    transition: color 0.3s ease;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease; /* This makes the hover feel smooth */
 }
 
 a:hover {
-    color: var(--accent); /* Changes color slightly when you hover */
-    text-decoration: underline;
+    color: #ffffff; 
+    text-shadow: 0 0 8px var(--accent); /* Adds a green "neon" glow */
+}
+
+/* Roadmap Cards Glow */
+.skeleton-card:hover {
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 15px rgba(118, 185, 0, 0.3);
+    transform: translateY(-5px); /* Makes the card "pop" up slightly */
 }
 
 /* Specifically for your Roadmap Links */
@@ -83,10 +91,9 @@ h1 { color: var(--accent); font-size: 3rem; }
 }
 
 .skeleton-icon, .skeleton-line {
-    background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+    background: linear-gradient(90deg, var(--card-bg) 25%, #2a2a2a 50%, var(--card-bg) 75%);
     background-size: 200% 100%;
     animation: shimmer 2s infinite linear;
-    border-radius: 4px;
 }
 
 .skeleton-icon {
