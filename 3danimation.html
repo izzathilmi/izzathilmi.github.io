@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D DNA Helix Animation</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #050505;
+            overflow: hidden;
+        }
+
+        #helix-container {
+            position: relative;
+            width: 200px;
+            height: 500px;
+        }
+
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Connection line between the two strands */
+        .connector {
+            position: absolute;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            transform-origin: left center;
+            pointer-events: none;
+        }
+
+        /* Color Strands */
+        .strand-1 { background-color: #00d2ff; box-shadow: 0 0 10px #00d2ff; }
+        .strand-2 { background-color: #3a7bd5; box-shadow: 0 0 10px #3a7bd5; }
+    </style>
+</head>
+<body>
+
+    <div id="helix-container"></div>
+
+    <script>
+        const container = document.getElementById('helix-container');
+        const numRows = 30; // Number of "steps" in the helix
+        const speed = 0.05;
+        let rotation = 0;
+
+        // Create the elements
+        const rows = [];
+        for (let i = 0; i < numRows; i++) {
+            const connector = document.createElement('div');
+            connector.className = 'connector';
+            
+            const dot1 = document.createElement('div');
+            dot1.className = 'node strand-1';
+            
+            const dot2 = document.createElement('div');
+            dot2.className = 'node strand-2';
+
+            container.appendChild(connector);
+            container.appendChild(dot1);
+            container.appendChild(dot2);
+
+            rows.push({ connector, dot1, dot2, offset: i * 0.3 });
+        }
+
+        function animate() {
+            rotation += speed;
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+
+            rows.forEach((row, i) => {
+                const y = (i / numRows) * containerHeight;
+                
+                // Calculate horizontal positions using Sine and Cosine
+                const x1 = Math.sin(rotation + row.offset) * 80 + (containerWidth / 2);
+                const x2 = Math.sin(rotation + row.offset + Math.PI) * 80 + (containerWidth / 2);
+                
+                // Depth effect (scaling based on Z-index equivalent)
+                const z1 = Math.cos(rotation + row.offset);
+                const z2 = Math.cos(rotation + row.offset + Math.PI);
+                
+                const scale1 = (z1 + 2) / 3; 
+                const scale2 = (z2 + 2) / 3;
+
+                // Update Dot 1
+                row.dot1.style.left = `${x1}px`;
+                row.dot1.style.top = `${y}px`;
+                row.dot1.style.transform = `translate(-50%, -50%) scale(${scale1})`;
+                row.dot1.style.opacity = (z1 + 1.5) / 2.5;
+
+                // Update Dot 2
+                row.dot2.style.left = `${x2}px`;
+                row.dot2.style.top = `${y}px`;
+                row.dot2.style.transform = `translate(-50%, -50%) scale(${scale2})`;
+                row.dot2.style.opacity = (z2 + 1.5) / 2.5;
+
+                // Update Connector Line
+                const width = Math.abs(x1 - x2);
+                const left = Math.min(x1, x2);
+                row.connector.style.width = `${width}px`;
+                row.connector.style.left = `${left}px`;
+                row.connector.style.top = `${y}px`;
+                row.connector.style.opacity = Math.min(scale1, scale2) * 0.5;
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
