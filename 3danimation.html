@@ -38,10 +38,45 @@
         .connector {
             background: var(--line-color);
         }
+
+        /* Add this - it's why the dots are currently invisible */
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        #helix-container {
+            position: relative;
+            width: 200px;
+            height: 500px;
+            margin: 50px auto; /* Centers the helix on the page */
+        }
+
+        .connector {
+            position: absolute;
+            height: 2px;
+            transform-origin: left center;
+            z-index: 1;
+        }
+
+        /* Nav Styling */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            color: var(--dna-secondary);
+        }
     </style>
 </head>
 <body>
-    
+    <nav>
+        <div class="logo">IH</div>
+        <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
     <div id="helix-container"></div>
 
     <script>
@@ -114,6 +149,6 @@
 
         animate();
     </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
