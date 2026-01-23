@@ -115,22 +115,22 @@
         <div class="logo">IH</div>
         <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
     </nav>
-    <div id="helix-container"></div>
-    <section class="hero">
-    <div class="hero-text">
-        <h1>Innovation <span class="highlight">Driven</span></h1>
-        <p>Building the future of biotech and software.</p>
-    </div>
 
-    <div id="helix-container"></div>
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Innovation <span class="highlight">Driven</span></h1>
+            <p>Building the future of biotech and software.</p>
+        </div>
+
+        <div id="helix-container"></div>
     </section>
+
     <script>
         const container = document.getElementById('helix-container');
-        const numRows = 30; // Number of "steps" in the helix
+        const numRows = 30; 
         const speed = 0.01;
         let rotation = 0;
 
-        // Create the elements
         const rows = [];
         for (let i = 0; i < numRows; i++) {
             const connector = document.createElement('div');
@@ -151,36 +151,36 @@
 
         function animate() {
             rotation += speed;
+            
+            // FIX: We must define these variables inside animate() 
+            // so they update if you resize the window!
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
             const centerX = containerWidth / 2;
-            const amplitude = Math.min(containerWidth * 0.4, 80); // DNA gets narrower on small screens
+            const amplitude = Math.min(containerWidth * 0.4, 80); 
 
             rows.forEach((row, i) => {
                 const y = (i / numRows) * containerHeight;
                 
-                // Calculate horizontal positions using Sine and Cosine
                 const x1 = Math.sin(rotation + row.offset) * amplitude + centerX;
                 const x2 = Math.sin(rotation + row.offset + Math.PI) * amplitude + centerX;
                 
-                // Depth effect (scaling based on Z-index equivalent)
                 const z1 = Math.cos(rotation + row.offset);
                 const z2 = Math.cos(rotation + row.offset + Math.PI);
                 
                 const scale1 = (z1 + 2) / 3; 
                 const scale2 = (z2 + 2) / 3;
 
-                // Update Dot 1
                 row.dot1.style.left = `${x1}px`;
                 row.dot1.style.top = `${y}px`;
                 row.dot1.style.transform = `translate(-50%, -50%) scale(${scale1})`;
                 row.dot1.style.opacity = (z1 + 1.5) / 2.5;
 
-                // Update Dot 2
                 row.dot2.style.left = `${x2}px`;
                 row.dot2.style.top = `${y}px`;
                 row.dot2.style.transform = `translate(-50%, -50%) scale(${scale2})`;
                 row.dot2.style.opacity = (z2 + 1.5) / 2.5;
 
-                // Update Connector Line
                 const width = Math.abs(x1 - x2);
                 const left = Math.min(x1, x2);
                 row.connector.style.width = `${width}px`;
@@ -194,6 +194,5 @@
 
         animate();
     </script>
-    <script src="script.js"></script>
 </body>
 </html>
