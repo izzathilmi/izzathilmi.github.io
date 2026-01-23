@@ -179,6 +179,70 @@
             transition: opacity 0.5s ease;
             pointer-events: none;
         }
+
+        /* Skeleton Roadmap Styling */
+        .roadmap-skeleton {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .skeleton-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .skeleton-icon, .skeleton-line {
+            background: linear-gradient(90deg, var(--card-bg) 25%, #2a2a2a 50%, var(--card-bg) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        .skeleton-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        
+        .skeleton-line {
+            height: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .skeleton-line.short { width: 40%; }
+        .skeleton-line.long { width: 90%; }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .status-text {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-top: 20px;
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        /* Roadmap Cards Glow */
+        .skeleton-card:hover {
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 15px rgba(118, 185, 0, 0.3);
+            transform: translateY(-5px); /* Makes the card "pop" up slightly */
+        }
+        
+        /* Specifically for your Roadmap Links */
+        .skeleton-card-link {
+            text-decoration: none;
+            display: block; /* Makes the whole card clickable */
+            color: var(--text); /* Keeps the card text normal */
+        }
     </style>
 </head>
 <body>
@@ -212,6 +276,41 @@
             <p>Scroll Down</p>
         </div>
     </section>
+    <section class="container" id="about">
+        <h2>The Journey to Machine Vision</h2>
+        <p>
+            Welcome to my digital space. I am <strong>Izzat Hilmi</strong>, and this is where I document 
+            my evolution into the world of <strong>Machine Learning and Computer Vision</strong>.
+        </p>
+        <p>
+            I believe that teaching machines to "see" is the next frontier of human-tech interaction. 
+            From understanding pixel patterns to building real-time object detection systems, 
+            I am sharing every milestone, challenge, and breakthrough here.
+        </p>
+    </section>
+    
+    <section class="container" id="roadmap">
+        <h2>Learning Roadmap</h2>
+        <div class="roadmap-skeleton">
+        <a href="stage1.html" class="skeleton-card-link">
+            <div class="skeleton-card">
+                <div class="skeleton-icon"></div>
+                <h3>Stage 1: The Core Brain</h3>
+                <p>Click to see foundation details.</p>
+            </div>
+        </a>
+    
+        <a href="stage2.html" class="skeleton-card-link">
+            <div class="skeleton-card">
+                <div class="skeleton-icon"></div>
+                <h3>Stage 2: Physical Interaction</h3>
+                <p>Exploring robotic vision.</p>
+            </div>
+        </a>
+        
+        </div>
+        <p class="status-text">Roadmap loading... content coming soon as the journey unfolds.</p>
+        </section>
 
     <script>
         const container = document.getElementById('helix-container');
