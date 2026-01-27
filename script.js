@@ -1,25 +1,32 @@
 const toggle = document.getElementById('theme-toggle');
-const html = document.documentElement;
+const root = document.documentElement;
 
+// 1. Load saved theme immediately
+const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
+root.setAttribute('data-theme', savedTheme);
+toggle.innerText = savedTheme === 'dark' ? '🌙' : '☀️';
+
+// 2. Single Toggle Listener
 toggle.addEventListener('click', () => {
-    const isDark = html.getAttribute('data-theme') === 'dark';
+    const isDark = root.getAttribute('data-theme') === 'dark';
     const newTheme = isDark ? 'light' : 'dark';
     
-    html.setAttribute('data-theme', newTheme);
+    root.setAttribute('data-theme', newTheme);
     toggle.innerText = isDark ? '☀️' : '🌙';
-    
-    // Save preference to browser memory
     localStorage.setItem('theme', newTheme);
 });
 
-// Load saved theme on startup
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-    html.setAttribute('data-theme', savedTheme);
-    toggle.innerText = savedTheme === 'dark' ? '🌙' : '☀️';
-}
+window.addEventListener('scroll', () => {
+    const indicator = document.querySelector('.scroll-indicator');
+    if (indicator) { // Guard clause to prevent errors if element is missing
+        if (window.scrollY > 100) {
+            indicator.classList.add('hidden');
+        } else {
+            indicator.classList.remove('hidden');
+        }
+    }
+});
 
-// DNA Helix Logic
 const container = document.getElementById('helix-container');
 const numRows = 30; 
 const speed = 0.01;
@@ -27,6 +34,7 @@ let rotation = 0;
 const rows = [];
 
 function initHelix() {
+    if (!container) return; // Don't run if container doesn't exist
     for (let i = 0; i < numRows; i++) {
         const connector = document.createElement('div');
         connector.className = 'connector';
@@ -77,27 +85,6 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// Theme Toggle Logic
-const themeToggle = document.getElementById('theme-toggle');
-const root = document.documentElement;
-
-themeToggle.addEventListener('click', () => {
-    const isLight = root.getAttribute('data-theme') === 'light';
-    const newTheme = isLight ? 'dark' : 'light';
-    root.setAttribute('data-theme', newTheme);
-    themeToggle.textContent = isLight ? '🌙' : '☀️';
-});
-
-// Scroll Hide Logic
-window.addEventListener('scroll', () => {
-    const indicator = document.querySelector('.scroll-indicator');
-    if (window.scrollY > 100) {
-        indicator.classList.add('hidden');
-    } else {
-        indicator.classList.remove('hidden');
-    }
-});
-
-// Start everything
+// 4. Execution
 initHelix();
 animate();
